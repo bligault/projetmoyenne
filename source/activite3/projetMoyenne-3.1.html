@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul de Moyenne Pondérée avec Sauvegarde</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Cette zone du fichier décrit le rendu graphique qui va s'appliquer à la page    -->
+    <!-- lorsqu'elle est ouverte dans le navigateur. La page fonctionne sans cette zone  -->
+    <!-- mais ça devient bien moins joli. Esayez pour voir !                             -->
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1729179666011-38d13280b92f');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .form-title {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .btn-calculate, .btn-save, .btn-load {
+            margin-top: 15px;
+        }
+        .btn-calculate {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-save {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-load {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+        .btn-calculate:hover, .btn-save:hover, .btn-load:hover {
+            opacity: 0.9;
+        }
+        .btn-add {
+            background-color: #aaaaaa;
+            border-color: #28a745;
+		}
+        .btn-del {
+            background-color: #28a745;
+            border-color: #28a745;
+			
+        }
+		.form-inline {
+			display: inline-block;
+			margin-right: 10px;
+		}
+		
+		.form-control {
+			width: 100%;
+		}
+		
+		.row-data {
+			height:50px;
+		}
+    </style>
+</head>
+
+<!-- Cette zone constitue la structure la page HTML sur laquelle s'appliquent les styles définis plus haut -->
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 form-container">
+            <h2 class="text-center form-title">Calcul de la Moyenne</h2>
+            <!-- Cette zone va permettre de saisie et afficher les notes d'une matière d'indice 0 -->
+            <div class="form-group" id="gestion-des-notes-de-0">
+                <div class="row">
+                    <!-- Cette balise contient le titre d'une matière  -->
+                    <h5 id="matiere-0">Mathématiques</h5>
+                </div>
+                <!-- Ici on remplit la 1ère ligne d'un tableau, avec les titres -->
+                <div class="row">
+                    <div class="col">
+                        <label>Note</label>
+                    </div>
+                    <div class="col">
+                        <label>Coefficient</label>
+                    </div>
+                </div>
+                <!-- Zone pour la saisie des notes de la 1ère matière (indice 0) -->
+                <div id="saisie-des-notes-de-0">
+                    <!-- Ici on a une ligne pour la saisie d'une 1ère note (indice 0) et coefficient de la 1ère matière (indice 0) -->
+                    <div class="row row-data" id="zone-note-0-de-0">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-0-de-0" placeholder="Entrez la note de Mathématiques" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-0-de-0" placeholder="Entrez le coefficient de Mathématiques" required=""
+                                   value="">
+                        </div>
+                    </div>
+                    <!-- Ici on a une ligne pour la saisie d'une seconde note (indice 1) et coefficient de la 1ère matière (indice 0) -->
+                    <div class="row row-data" id="zone-note-1-de-0">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-1-de-0" placeholder="Entrez la note de Mathématiques" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-1-de-0" placeholder="Entrez le coefficient de Mathématiques" required=""
+                                   value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="gestion-des-notes-de-1">
+                <div class="row">
+                    <h5 id="matiere-1">Physique</h5>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>Note</label>
+                    </div>
+                    <div class="col">
+                        <label>Coefficient</label>
+                    </div>
+                </div>
+                <div id="saisie-des-notes-de-1">
+                    <div class="row row-data" id="zone-note-0-de-1">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-0-de-1" placeholder="Entrez la note de Physique" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-0-de-1" placeholder="Entrez le coefficient de Physique" required=""
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="row row-data" id="zone-note-1-de-1">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-1-de-1" placeholder="Entrez la note de Physique" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-1-de-1" placeholder="Entrez le coefficient de Physique" required=""
+                                   value="">
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <div class="form-group" id="gestion-des-notes-de-2">
+                <div class="row">
+                    <h5 id="matiere-2">Français</h5>
+                </div>
+                <div class="row">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>Note</label>
+                    </div>
+                    <div class="col">
+                        <label>Coefficient</label>
+                    </div>
+                </div>
+                <div id="saisie-des-notes-de-2">
+                    <div class="row row-data" id="zone-note-0-de-2">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-0-de-2" placeholder="Entrez la note de Français" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-0-de-2" placeholder="Entrez le coefficient de Français" required=""
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="row row-data" id="zone-note-1-de-2">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-1-de-2" placeholder="Entrez la note de Français" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-1-de-2" placeholder="Entrez le coefficient de Français" required=""
+                                   value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="gestion-des-notes-de-3">
+                <div class="row">
+                    <h5 id="matiere-3">Histoire</h5>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>Note</label>
+                    </div>
+                    <div class="col">
+                        <label>Coefficient</label>
+                    </div>
+                </div>
+                <div id="saisie-des-notes-de-3">
+                    <div class="row row-data" id="zone-note-0-de-3">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-0-de-3" placeholder="Entrez la note de Histoire" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-0-de-3" placeholder="Entrez le coefficient de Histoire" required=""
+                                   value="">
+                        </div>
+                    </div>
+                    <div class="row row-data" id="zone-note-1-de-3">
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="note-1-de-3" placeholder="Entrez la note de Histoire" required="" value="">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control"
+                                   id="coeff-1-de-3" placeholder="Entrez le coefficient de Histoire" required=""
+                                   value="">
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <form id="formulaire-des-notes">
+                <br>
+                <!-- Boutons de calcul, sauvegarde, et chargement -->
+                <button type="button" class="btn btn-primary btn-calculate btn-block" onclick="calculerMoyenneGenerale(3)">Calculer la Moyenne Pondérée</button>
+                <!-- Champ affichage de la moyenne -->
+                <div class="form-group mt-4">
+                    <label for="average"><strong>Moyenne Pondérée</strong></label>
+                    <input type="text" class="form-control" id="average" readonly="">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Lien vers Bootstrap JS et dépendances -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<!-- Script pour gérer la moyenne, sauvegarder et charger les données 
+     En temps normal ce code javascript est externalisé pour ne pas mélanger le code statique HTML
+     de la page et son dynamisme  
+-->
+<script>
+
+    /**
+     *  Fonction de calcul de la moyenne pondérée :
+     * - codeMatiere : l'indice de la matiere
+     * - Va chercher une à une les valeurs présentes dans les balises HTML et les transforme en nombre
+     *   si un nombre a été saisi.
+     * - Si aucun nombre n'est saisi alors la fonction isNan (is Not a Number) retourne vrai et alors
+     *   le booléan xxxOk est à false. Dans ce cas la note ne sera pas prise en compte dans la moyenne.
+     * - Calcule et retourne la moyenne pondérée
+    */
+    function calculerMoyenneDuneMatiere(codeMatiere) {
+        let moyenne = null;
+        const valeurMaximale = 2;
+
+        let sommeNotes = 0;
+        let sommeCoeff = 0;
+
+        for (var i = 0; i <= valeurMaximale; i++) {
+            let inputNote = document.getElementById('note-' + i + '-de-' + codeMatiere);
+            let inputCoeff = document.getElementById('coeff-' + i + '-de-' + codeMatiere);
+            if (inputNote != null && inputCoeff != null) {
+                let note = inputNote.value;
+                let coeff = inputCoeff.value;
+                sommeNotes = sommeNotes + note * coeff;
+                sommeCoeff = sommeCoeff + coeff * 1;
+            }
+        }
+
+        if (sommeCoeff > 0) {
+            moyenne = sommeNotes / sommeCoeff;
+        }
+        return moyenne;
+    }
+
+    // Fonction de calcul de la moyenne pondérée
+    // Paramètre "valeurMaximaleMatiere" : indice de la dernière matière
+    function calculerMoyenneGenerale(valeurMaximaleMatiere) {
+        // Pour toutes les matières de 0 à "valeurMaximaleMatiere", aditionne la moyenne de chaque matière
+        // pour la diviser par le nombre de matière
+        let sommeDesMoyennes = 0;
+        let nombreDeMatiere = 0;
+        for (var codeMatiere = 0; codeMatiere <= valeurMaximaleMatiere; codeMatiere++) {
+            console.log("Calcul pour la matiere : " + codeMatiere);
+            var moyenneDeLaMatiere = calculerMoyenneDuneMatiere(codeMatiere);
+            if (moyenneDeLaMatiere != null) {
+                sommeDesMoyennes = sommeDesMoyennes + moyenneDeLaMatiere;
+                nombreDeMatiere = nombreDeMatiere + 1;
+            }
+        }
+
+        if (nombreDeMatiere > 0) {
+            const moyenneGenerale = sommeDesMoyennes / nombreDeMatiere;
+            document.getElementById('average').value = moyenneGenerale.toFixed(2);
+        } else {
+            document.getElementById('average').value = "";
+        }
+    }
+
+</script>
+
+</body>
+</html>
